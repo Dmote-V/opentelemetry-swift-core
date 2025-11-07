@@ -5,6 +5,7 @@ import Foundation
 import PackageDescription
 
 let otPackages = "https://github.com/DataDog/opentelemetry-swift-packages.git"
+let otPackagesID  = "opentelemetry-swift-packages"
 
 let package = Package(
   name: "opentelemetry-swift-core",
@@ -36,14 +37,14 @@ let package = Package(
     .target(
       name: "OpenTelemetrySdk",
       dependencies: [
-        .product(name: "OpenTelemetryApi", package: otPackages),
+        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages"),
         .product(name: "Atomics", package: "swift-atomics", condition: .when(platforms: [.linux])),
       ]
     ),
     .target(
       name: "OpenTelemetryConcurrency",
       dependencies: [
-        .product(name: "OpenTelemetryApi", package: otPackages)
+        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
       ]
     ),
     .target(
@@ -55,14 +56,14 @@ let package = Package(
       name: "OpenTelemetryTestUtils",
       dependencies: [
         "OpenTelemetrySdk",
-        .product(name: "OpenTelemetryApi", package: otPackages)
+        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
       ]
     ),
     .testTarget(
       name: "OpenTelemetryApiTests",
       dependencies: [
         "OpenTelemetryTestUtils",
-        .product(name: "OpenTelemetryApi", package: otPackages)
+        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
       ],
       path: "Tests/OpenTelemetryApiTests"
     ),
