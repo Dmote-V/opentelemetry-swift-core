@@ -17,7 +17,7 @@ let package = Package(
     .visionOS(.v1),
   ],
   products: [
-    .library(name: "OpenTelemetryApi", targets: ["OpenTelemetryApi"]),
+//    .library(name: "OpenTelemetryApi", targets: ["OpenTelemetryApi"]),
     .library(name: "OpenTelemetryConcurrency", targets: ["OpenTelemetryConcurrency"]),
     .library(name: "OpenTelemetrySdk", targets: ["OpenTelemetrySdk"]),
     .library(name: "StdoutExporter", targets: ["StdoutExporter"]),
@@ -30,23 +30,31 @@ let package = Package(
 //    ),
   ],
   targets: [
+//    .target(
+//      name: "OpenTelemetryApi",
+//      dependencies: []
+//    ),
     .target(
-      name: "OpenTelemetryApi",
-      dependencies: []
+        name: "OpenTelemetryApi137",             // <- unique target/module
+        path: "Sources/OpenTelemetryApi"
     ),
     .target(
       name: "OpenTelemetrySdk",
       dependencies: [
-        "OpenTelemetryApi",
-//        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages"),
+        "OpenTelemetryApi137",
         .product(name: "Atomics", package: "swift-atomics", condition: .when(platforms: [.linux])),
+      ],
+      swiftSettings: [
+        .unsafeFlags(["-Xfrontend","-module-alias","OpenTelemetryApi=OpenTelemetryApi137"])
       ]
     ),
     .target(
       name: "OpenTelemetryConcurrency",
       dependencies: [
-        "OpenTelemetryApi"
-//        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
+        "OpenTelemetryApi137"
+      ],
+      swiftSettings: [
+        .unsafeFlags(["-Xfrontend","-module-alias","OpenTelemetryApi=OpenTelemetryApi137"])
       ]
     ),
     .target(
@@ -58,18 +66,24 @@ let package = Package(
       name: "OpenTelemetryTestUtils",
       dependencies: [
         "OpenTelemetrySdk",
-        "OpenTelemetryApi"
+        "OpenTelemetryApi137"
 //        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
+      ],
+      swiftSettings: [
+        .unsafeFlags(["-Xfrontend","-module-alias","OpenTelemetryApi=OpenTelemetryApi137"])
       ]
     ),
     .testTarget(
       name: "OpenTelemetryApiTests",
       dependencies: [
         "OpenTelemetryTestUtils",
-        "OpenTelemetryApi"
+        "OpenTelemetryApi137"
 //        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
       ],
-      path: "Tests/OpenTelemetryApiTests"
+      path: "Tests/OpenTelemetryApiTests",
+      swiftSettings: [
+        .unsafeFlags(["-Xfrontend","-module-alias","OpenTelemetryApi=OpenTelemetryApi137"])
+      ]
     ),
     .testTarget(
       name: "OpenTelemetrySdkTests",
