@@ -4,8 +4,8 @@
 import Foundation
 import PackageDescription
 
-let otPackages = "https://github.com/DataDog/opentelemetry-swift-packages.git"
-let otPackagesID  = "opentelemetry-swift-packages"
+//let otPackages = "https://github.com/DataDog/opentelemetry-swift-packages.git"
+//let otPackagesID  = "opentelemetry-swift-packages"
 
 let package = Package(
   name: "opentelemetry-swift-core",
@@ -17,7 +17,7 @@ let package = Package(
     .visionOS(.v1),
   ],
   products: [
-    //.library(name: "OpenTelemetryApi", targets: ["OpenTelemetryApi"]),
+    .library(name: "OpenTelemetryApi", targets: ["OpenTelemetryApi"]),
     .library(name: "OpenTelemetryConcurrency", targets: ["OpenTelemetryConcurrency"]),
     .library(name: "OpenTelemetrySdk", targets: ["OpenTelemetrySdk"]),
     .library(name: "StdoutExporter", targets: ["StdoutExporter"]),
@@ -25,26 +25,28 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-atomics.git", from: "1.3.0"),
-    .package(
-        url: otPackages, exact: Version(stringLiteral: "1.13.1")
-    ),
+//    .package(
+//        url: otPackages, exact: Version(stringLiteral: "1.13.1")
+//    ),
   ],
   targets: [
-//    .target(
-//      name: "OpenTelemetryApi",
-//      dependencies: []
-//    ),
+    .target(
+      name: "OpenTelemetryApi",
+      dependencies: []
+    ),
     .target(
       name: "OpenTelemetrySdk",
       dependencies: [
-        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages"),
+        "OpenTelemetryApi",
+//        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages"),
         .product(name: "Atomics", package: "swift-atomics", condition: .when(platforms: [.linux])),
       ]
     ),
     .target(
       name: "OpenTelemetryConcurrency",
       dependencies: [
-        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
+        "OpenTelemetryApi"
+//        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
       ]
     ),
     .target(
@@ -56,14 +58,16 @@ let package = Package(
       name: "OpenTelemetryTestUtils",
       dependencies: [
         "OpenTelemetrySdk",
-        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
+        "OpenTelemetryApi"
+//        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
       ]
     ),
     .testTarget(
       name: "OpenTelemetryApiTests",
       dependencies: [
         "OpenTelemetryTestUtils",
-        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
+        "OpenTelemetryApi"
+//        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
       ],
       path: "Tests/OpenTelemetryApiTests"
     ),

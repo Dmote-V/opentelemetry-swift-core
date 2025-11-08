@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "opentelemetry-swift-packages",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/DataDog/opentelemetry-swift-packages.git",
-      "state" : {
-        "revision" : "4a7295600d4ebb9525a23c11586c5fdb74ae8b7e",
-        "version" : "1.13.1"
-      }
-    },
-    {
       "identity" : "swift-atomics",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-atomics.git",
