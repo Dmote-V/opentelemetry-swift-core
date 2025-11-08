@@ -45,7 +45,10 @@ let package = Package(
         .product(name: "Atomics", package: "swift-atomics", condition: .when(platforms: [.linux])),
       ],
       swiftSettings: [
-        .unsafeFlags(["-Xfrontend","-module-alias","OpenTelemetryApi=OpenTelemetryApi137"])
+        .unsafeFlags([
+            "-Xfrontend", "-module-alias",
+            "-Xfrontend", "OpenTelemetryApi=OpenTelemetryApi137"
+          ])
       ]
     ),
     .target(
@@ -54,7 +57,10 @@ let package = Package(
         "OpenTelemetryApi137"
       ],
       swiftSettings: [
-        .unsafeFlags(["-Xfrontend","-module-alias","OpenTelemetryApi=OpenTelemetryApi137"])
+        .unsafeFlags([
+            "-Xfrontend", "-module-alias",
+            "-Xfrontend", "OpenTelemetryApi=OpenTelemetryApi137"
+          ])
       ]
     ),
     .target(
@@ -67,10 +73,12 @@ let package = Package(
       dependencies: [
         "OpenTelemetrySdk",
         "OpenTelemetryApi137"
-//        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
       ],
       swiftSettings: [
-        .unsafeFlags(["-Xfrontend","-module-alias","OpenTelemetryApi=OpenTelemetryApi137"])
+        .unsafeFlags([
+            "-Xfrontend", "-module-alias",
+            "-Xfrontend", "OpenTelemetryApi=OpenTelemetryApi137"
+          ])
       ]
     ),
     .testTarget(
@@ -78,11 +86,13 @@ let package = Package(
       dependencies: [
         "OpenTelemetryTestUtils",
         "OpenTelemetryApi137"
-//        .product(name: "OpenTelemetryApi", package: "opentelemetry-swift-packages")
       ],
       path: "Tests/OpenTelemetryApiTests",
       swiftSettings: [
-        .unsafeFlags(["-Xfrontend","-module-alias","OpenTelemetryApi=OpenTelemetryApi137"])
+        .unsafeFlags([
+            "-Xfrontend", "-module-alias",
+            "-Xfrontend", "OpenTelemetryApi=OpenTelemetryApi137"
+          ])
       ]
     ),
     .testTarget(
